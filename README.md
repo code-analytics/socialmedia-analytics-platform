@@ -1,1 +1,1 @@
-# ecommerce-data-stream
+# eCommerce Data Stream
