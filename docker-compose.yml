@@ -29,3 +29,4 @@ services:
       ZK_HOSTS: "zookeeper:2181"
       APPLICATION_SECRET: "random-secret"
     command: -Dpidfile.path=/dev/null
+
