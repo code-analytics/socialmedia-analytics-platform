@@ -1,16 +1,10 @@
 import io.alphash.faker._
+import models.User
+import DataProducer.writeToKafka
 
 import scala.util.Random
 
-case class User(
-                username: String,
-                firstname: String,
-                lastname: String,
-                age: Int,
-                phone: String
-               )
-
-object Producer {
+object Publisher {
 
   def generateRecord(): User = {
     val personGenerator = Person()
@@ -25,6 +19,6 @@ object Producer {
 
   def main(args: Array[String]): Unit = {
     val record = generateRecord()
-    println(record.username, record.age)
+    writeToKafka("customer_record","Black Belt - 25€")
   }
 }
