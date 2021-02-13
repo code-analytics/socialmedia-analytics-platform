@@ -35,7 +35,7 @@ package "BI Analytics" {
 
 package "Data Aquisition" {
     queue "<$kafka>\nKafka" as kafka #LightBlue
-    rectangle "<$spark{scale=0.05}>\nSpark" as spark #LightBlue
+    rectangle "<$spark{scale=0.05}>" as spark #LightBlue
 }
 
 
