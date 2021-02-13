@@ -15,22 +15,24 @@
 !includeurl ICONURL/font-awesome-5/calculator.puml
 !includeurl ICONURL/font-awesome-5/chart_line.puml
 
+!include <aws/common>
+!include <logos/airflow.puml>
+!include <logos/spark.puml>
+
 left to right direction
 
 package "Producers" {
     FA_MOBILE_PHONE(producer1, Phones) #LightBlue
     FA5_LAPTOP(producer2, Laptops) #LightBlue
-    FA5_TABLET_ALT(producer3, Tablets) #LightBlue   
+    FA5_TABLET_ALT(producer3, Tablets) #LightBlue
 }
 
 package "Data Aquisition" {
-    queue "<$kafka>" as kafka #LightBlue
-    rectangle "Spark Streaming" as spark #LightBlue
+    queue "<$kafka>\nKafka" as kafka #LightBlue
+    rectangle "<$spark>\nSpark Streaming" as spark #LightBlue
 }
 
-rectangle "Airflow" as airflow #LightBlue
-'airflow : <img:https://upload.wikimedia.org/wikipedia/commons/d/de/AirflowLogo.png>
-
+rectangle "<$airflow>\nAirflow"  as airflow #LightBlue
 
 DEV_MYSQL(mysql, MySQL) #LightBlue
 
@@ -38,7 +40,6 @@ package "BI Analytics" {
     FA5_CALCULATOR(bi, KPI Calc) #LightPink
     FA5_CHART_LINE(dashboard, Dashboard) #LightPink
 }
-
 
 producer1 --> kafka
 producer2 --> kafka
