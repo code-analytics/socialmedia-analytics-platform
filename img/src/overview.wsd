@@ -15,42 +15,42 @@
 !includeurl ICONURL/font-awesome-5/calculator.puml
 !includeurl ICONURL/font-awesome-5/chart_line.puml
 
-!include <aws/common>
 !include <logos/airflow.puml>
-!include <logos/spark.puml>
+
+sprite spark ../input/spark_icon.png
 
 left to right direction
 
 package "Producers" {
     FA_MOBILE_PHONE(producer1, Phones) #LightBlue
     FA5_LAPTOP(producer2, Laptops) #LightBlue
-    FA5_TABLET_ALT(producer3, Tablets) #LightBlue
+    FA5_TABLET_ALT(producer3, Tablets) #LightBlue   
+}
+
+package "BI Analytics" {
+    rectangle "<$airflow>\nAirflow"  as airflow #LightBlue
+    FA5_CHART_LINE(dashboard, Dashboard) #LightPink
+    FA5_CALCULATOR(bi, KPI Calc) #LightPink
 }
 
 package "Data Aquisition" {
     queue "<$kafka>\nKafka" as kafka #LightBlue
-    rectangle "<$spark>\nSpark Streaming" as spark #LightBlue
+    rectangle "<$spark{scale=0.05}>\nSpark" as spark #LightBlue
 }
 
-rectangle "<$airflow>\nAirflow"  as airflow #LightBlue
 
 DEV_MYSQL(mysql, MySQL) #LightBlue
 
-package "BI Analytics" {
-    FA5_CALCULATOR(bi, KPI Calc) #LightPink
-    FA5_CHART_LINE(dashboard, Dashboard) #LightPink
-}
+producer1 --> kafka : message
+producer2 --> kafka : message
+producer3 --> kafka : message
 
-producer1 --> kafka
-producer2 --> kafka
-producer3 --> kafka
+kafka <--> spark : streaming
 
-kafka <--> spark
-
-spark --> mysql
-bi <--> mysql
-dashboard <--> mysql
-airflow --> bi
+spark --> mysql : store
+bi <--> mysql : fetch & store
+dashboard <--> mysql : fetch
+airflow --> bi : Daily
 
 legend right
     |Color | Type |
