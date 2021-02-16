@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "User",
+  "namespace": "org.sociamedia.common.models",
+  "fields": [ {
+    "name": "firstname",
+    "type": "string"
+  }, {
+    "name": "lastname",
+    "type": "string"
+  } ]
+}

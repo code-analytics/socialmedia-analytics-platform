@@ -1,25 +1,21 @@
 package org.sociamedia.producer
 
-import io.alphash.faker.{Internet, Person, Phone}
+import io.alphash.faker.{Person}
 import org.sociamedia.common.models.User
-
-import scala.util.Random
+import org.sociamedia.producer.DataProducer.sendUserToKafka
 
 object Publisher {
 
   def generateRecord(): User = {
     val personGenerator = Person()
     User(
-      username = Internet().username,
       firstname = personGenerator.firstNameMale,
-      lastname = personGenerator.lastName,
-      age = 18 + Random.nextInt(90),
-      phone = Phone().phoneNumber()
+      lastname = personGenerator.lastName
     )
   }
 
   def main(args: Array[String]): Unit = {
-    val record = generateRecord()
-    println(s"${record.firstname} ${record.lastname}")
+      val record = generateRecord()
+      sendUserToKafka("users", record)
   }
 }

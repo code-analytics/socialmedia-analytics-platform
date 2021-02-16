@@ -11,7 +11,7 @@ object AvroGenerator {
   def generateUserAvro(): Unit = {
     val schema = userToAvroSchema().toString(true)
       .replaceAll("\" :", "\":")
-    val writer = new PrintWriter(new File("src/main/resources/user.avsc"))
+    val writer = new PrintWriter(new File("src/main/resources/avro/user.avsc"))
     writer.write(schema)
     writer.close()
   }
