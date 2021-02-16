@@ -1,4 +1,4 @@
-package models
+package org.sociamedia.common.models
 
 case class User(
                  username: String,
