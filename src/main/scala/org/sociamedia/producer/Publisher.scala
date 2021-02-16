@@ -1,6 +1,7 @@
-import io.alphash.faker._
-import models.User
-import DataProducer.writeToKafka
+package org.sociamedia.producer
+
+import io.alphash.faker.{Internet, Person, Phone}
+import org.sociamedia.common.models.User
 
 import scala.util.Random
 
@@ -19,6 +20,6 @@ object Publisher {
 
   def main(args: Array[String]): Unit = {
     val record = generateRecord()
-    writeToKafka("customer_record","Black Belt - 25€")
+    println(s"${record.firstname} ${record.lastname}")
   }
 }
