@@ -1,7 +1,8 @@
 package org.sociamedia.producer
 
-import io.alphash.faker.{Person}
+import io.alphash.faker.Person
 import org.sociamedia.common.models.User
+import org.sociamedia.producer.AvroRecordGenerator.makeUserRecord
 import org.sociamedia.producer.DataProducer.sendUserToKafka
 
 object Publisher {
@@ -16,6 +17,6 @@ object Publisher {
 
   def main(args: Array[String]): Unit = {
       val record = generateRecord()
-      sendUserToKafka("users", record)
+      sendUserToKafka("users", record, makeUserRecord[User])
   }
 }
