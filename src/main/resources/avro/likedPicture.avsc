@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "LikedPicture",
+  "namespace": "org.sociamedia.common.models",
+  "fields": [ {
+    "name": "pictureId",
+    "type": "int"
+  }, {
+    "name": "userId",
+    "type": "int"
+  } ]
+}

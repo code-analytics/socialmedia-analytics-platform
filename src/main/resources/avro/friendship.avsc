@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "Friendship",
+  "namespace": "org.sociamedia.common.models",
+  "fields": [ {
+    "name": "userId",
+    "type": "int"
+  }, {
+    "name": "friendId",
+    "type": "int"
+  } ]
+}

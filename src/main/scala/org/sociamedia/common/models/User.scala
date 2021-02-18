@@ -1,3 +1,12 @@
 package org.sociamedia.common.models
 
-case class User(firstname: String, lastname: String)
+case class User(
+                 userId: Int,
+                 username: String,
+                 email: String,
+                 phone: String,
+                 firstname: String,
+                 lastname: String,
+                 birthday: Long,
+                 signUpDate: Long
+               )

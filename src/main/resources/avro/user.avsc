@@ -3,10 +3,28 @@
   "name": "User",
   "namespace": "org.sociamedia.common.models",
   "fields": [ {
+    "name": "userId",
+    "type": "int"
+  }, {
+    "name": "username",
+    "type": "string"
+  }, {
+    "name": "email",
+    "type": "string"
+  }, {
+    "name": "phone",
+    "type": "string"
+  }, {
     "name": "firstname",
     "type": "string"
   }, {
     "name": "lastname",
     "type": "string"
+  }, {
+    "name": "birthday",
+    "type": "long"
+  }, {
+    "name": "signUpDate",
+    "type": "long"
   } ]
 }

@@ -15,4 +15,6 @@ object SchemaRegistryUtils {
     new Parser().parse(schemaAvroString)
   }
 
+  def writeSchemaToRepo(topic: String, schema: Schema): Unit = client.register(topic, schema)
+
 }

@@ -1,0 +1,18 @@
+{
+  "type": "record",
+  "name": "SharedPicture",
+  "namespace": "org.sociamedia.common.models",
+  "fields": [ {
+    "name": "pictureId",
+    "type": "int"
+  }, {
+    "name": "publisherId",
+    "type": "int"
+  }, {
+    "name": "pictureDate",
+    "type": "long"
+  }, {
+    "name": "pictureDuration",
+    "type": "int"
+  } ]
+}
