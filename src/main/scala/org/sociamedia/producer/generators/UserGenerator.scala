@@ -19,7 +19,7 @@ object UserGenerator {
     countriesList(randomIndex)
   }
 
-  def generateUser(id: Int): User = {
+  def apply(id: Int): User = {
    User(
       userId= id,
       username = internetGenerator.username,

@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "SharedVideo",
+  "name": "VideoPost",
   "namespace": "org.sociamedia.common.models",
   "fields": [ {
     "name": "videoId",

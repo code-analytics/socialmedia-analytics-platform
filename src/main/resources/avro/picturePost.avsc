@@ -1,6 +1,6 @@
 {
   "type": "record",
-  "name": "SharedPicture",
+  "name": "PicturePost",
   "namespace": "org.sociamedia.common.models",
   "fields": [ {
     "name": "pictureId",
@@ -11,8 +11,5 @@
   }, {
     "name": "pictureDate",
     "type": "long"
-  }, {
-    "name": "pictureDuration",
-    "type": "int"
   } ]
 }

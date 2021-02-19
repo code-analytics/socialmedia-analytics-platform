@@ -1,8 +1,11 @@
 package org.sociamedia.producer.actors
 
 import akka.actor.Actor
-import org.sociamedia.common.models.User
+import org.sociamedia.common.models.{PicturePost, User, VideoPost}
+import org.sociamedia.producer.AvroRecordGenerator.{makePicturePostRecord, makeUserRecord, makeVideoPostRecord}
+import org.sociamedia.producer.DataProducer.sendToKafka
 import org.sociamedia.producer.actors.ContentStore.{AddPicture, AddVideo}
+import org.sociamedia.producer.generators.{PictureGenerator, VideoGenerator}
 
 object ContentStore {
   case class AddPicture(user: User)
@@ -15,15 +18,15 @@ class ContentStore extends Actor {
 
   override def receive: Receive = {
     case AddPicture(user) =>
-      // generatePicture()
       latestPictureIndex = latestPictureIndex + 1
-      println(s"User ${user.userId} has posted the picture ${latestPictureIndex}")
-      // sendtoKafka
+      val picture = PictureGenerator(user.userId, latestPictureIndex)
+      println(s"User ${user.userId} has posted the picture $picture")
+      sendToKafka[PicturePost]("picturePost", picture, makePicturePostRecord)
 
     case AddVideo(user) =>
-      // generateVideo()
       latestVideoIndex = latestVideoIndex + 1
-      println(s"User ${user.userId} has posted the video ${latestVideoIndex}")
-    // sendtoKafka
+      val video = VideoGenerator(user.userId, latestVideoIndex)
+      println(s"User ${user.userId} has posted the video $video")
+      sendToKafka[VideoPost]("videoPost", video, makeVideoPostRecord)
   }
 }

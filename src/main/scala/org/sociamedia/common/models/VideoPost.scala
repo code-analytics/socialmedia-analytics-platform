@@ -1,6 +1,6 @@
 package org.sociamedia.common.models
 
-case class SharedVideo(
+case class VideoPost(
                         videoId: Int,
                         publisherId: Int,
                         videoDate: Long,
