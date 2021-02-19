@@ -29,5 +29,11 @@ object DateGenerator {
     formatDate(date)
   }
 
+  def generateTimeBeforeCreate(maxHours: Double): Int = {
+    val minTime = 1
+    val maxTime = (maxHours * 3600)
+    generateRandomNumber(minTime, maxTime.toInt)
+  }
+
 
 }

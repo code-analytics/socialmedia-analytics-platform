@@ -3,6 +3,8 @@ package org.sociamedia.producer.generators
 import org.scalatest.flatspec.AnyFlatSpec
 import org.sociamedia.producer.generators.DateGenerator._
 import java.text.SimpleDateFormat
+import org.sociamedia.producer.generators.UserGenerator._
+import org.sociamedia.producer.generators.CountryUsers.countries
 
 class UserGeneratorTest extends AnyFlatSpec {
 
@@ -36,6 +38,12 @@ class UserGeneratorTest extends AnyFlatSpec {
     println(formattedDate)
     val expectedFormattedDate = "1990-01-01"
     assert(formattedDate == expectedFormattedDate)
+  }
+
+  "a country name" should "be randomly picked from the country Map object" in {
+    val country = getCountry()
+    val listOfCountries = countries.map(_._1).toList
+    assert(listOfCountries.contains(country))
   }
 
 }

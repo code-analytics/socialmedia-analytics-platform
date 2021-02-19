@@ -1,0 +1,31 @@
+@startuml
+
+left to right direction
+
+
+class Producer {
+    +userInfo
+}
+
+class ContentStore {
+    +latestPictureIndex
+    +latestVideoIndex
+    -AddPicture()
+    -AddVideo()
+} 
+
+class UserStore {
+
+}
+
+class User {
+    +userId
+    -CreateUser()
+    -SharePicture()
+    -ShareVideo()
+    -SendFriendRequest()
+} 
+
+Producer --> User : Create a User
+User--> ContentStore : Add a new content
+@enduml
