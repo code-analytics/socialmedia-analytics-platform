@@ -23,7 +23,7 @@ object Publisher {
   }
 
   def main(args: Array[String]): Unit = {
-   val usersConfig = makeUserActorConfig(10)
+   val usersConfig = makeUserActorConfig(1000)
 
     val userStoreRef = system.actorOf(Props[UserStore], "user_store")
     val contentStoreRef = system.actorOf(Props[ContentStore], "content_store")

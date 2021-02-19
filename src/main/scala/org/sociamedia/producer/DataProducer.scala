@@ -28,13 +28,11 @@ object DataProducer {
     val producer = new KafkaProducer[String, GenericData.Record](props)
     val key = "1"
     val avroSchema = getAvroSchema(topic)
-    println("#############################")
-    println(avroSchema)
     val avroRecord = createRecord(data, avroSchema)
 
     Try {
       val record = new ProducerRecord(topic, key, avroRecord)
-      val ack = producer.send(record).get()
+      producer.send(record).get()
     }
     match {
       case Success(_) => println(s"Message sent to Kafka")
