@@ -23,7 +23,7 @@ Here are the events messages that will be store in MySQL
 
 ### Producer App
 
-## Architecture
+#### Architecture
 The Producer architecture is based on the Actor model. We use the actor model to have the app segmented in different parts that run in parallel.
 Each of the component you can see bellow run in the parallel and communicate with each other with typed messages.
 
