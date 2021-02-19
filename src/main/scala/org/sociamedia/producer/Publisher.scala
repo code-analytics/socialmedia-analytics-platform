@@ -25,12 +25,12 @@ object Publisher {
   def main(args: Array[String]): Unit = {
    val usersConfig = makeUserActorConfig(5)
 
-    val userStore = system.actorOf(Props[UserStore], "user_store")
-    val contentStore = system.actorOf(Props[ContentStore], "content_store")
+    val userStoreRef = system.actorOf(Props[UserStore], "user_store")
+    val contentStoreRef = system.actorOf(Props[ContentStore], "content_store")
 
     usersConfig.foreach { user =>
       system.scheduler.scheduleOnce(user.timeBeforeCreate seconds,
-        user.ref, CreateUser(userStore, contentStore))
+        user.ref, CreateUser(userStoreRef, contentStoreRef))
     }
   }
 }

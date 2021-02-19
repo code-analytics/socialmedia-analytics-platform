@@ -4,28 +4,36 @@ left to right direction
 
 
 class Producer {
-    +userInfo
+    +userActorsInfo
+    +userStoreRef
+    +contentStoreRef
 }
 
 class ContentStore {
     +latestPictureIndex
     +latestVideoIndex
-    -AddPicture()
-    -AddVideo()
+    +receive()
+    __ supported msg __
+    +AddPicture
+    +AddVideo
 } 
 
 class UserStore {
-
+    +latestUserIndex
+    +receive()
+    __ supported msg __
+    +addUser
 }
 
 class User {
-    +userId
-    -CreateUser()
-    -SharePicture()
-    -ShareVideo()
-    -SendFriendRequest()
+    +requests
+    __ supported msg __
+    +CreateUser
+    +ShareContent
 } 
 
-Producer --> User : Create a User
-User--> ContentStore : Add a new content
+Producer --> User : msg: Create a User
+User --> User : msg: ShareContent (with time interval)
+User <--> UserStore : msg: Add a new user
+User --> ContentStore : msg: Add a new content
 @enduml
