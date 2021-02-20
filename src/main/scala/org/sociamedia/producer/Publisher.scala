@@ -1,7 +1,7 @@
 package org.sociamedia.producer
 
 import akka.actor.{ActorRef, ActorSystem, Props}
-import org.sociamedia.producer.actors.{ContentStore, UserProfile, UserStore}
+import org.sociamedia.producer.actors.{ContentStore, FriendStore, UserProfile, UserStore}
 import org.sociamedia.producer.actors.UserProfile.CreateUser
 import org.sociamedia.producer.generators.DateGenerator.generateTimeBeforeCreate
 
@@ -23,14 +23,15 @@ object Publisher {
   }
 
   def main(args: Array[String]): Unit = {
-   val usersConfig = makeUserActorConfig(1000)
+   val usersConfig = makeUserActorConfig(10)
 
     val userStoreRef = system.actorOf(Props[UserStore], "user_store")
     val contentStoreRef = system.actorOf(Props[ContentStore], "content_store")
+    val friendStoreRef = system.actorOf(Props[FriendStore], "friend_store")
 
     usersConfig.foreach { user =>
       system.scheduler.scheduleOnce(user.timeBeforeCreate seconds,
-        user.ref, CreateUser(userStoreRef, contentStoreRef))
+        user.ref, CreateUser(userStoreRef, contentStoreRef, friendStoreRef))
     }
   }
 }
