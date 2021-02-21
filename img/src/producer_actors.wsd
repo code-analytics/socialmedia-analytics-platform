@@ -1,11 +1,10 @@
 @startuml
 
-left to right direction
 
 
 class Producer {
-    +userActorsInfo
-    +userStoreRef
+    +UserManagerActorsInfo
+    +UserManagerStoreRef
     +contentStoreRef
 }
 
@@ -16,24 +15,56 @@ class ContentStore {
     __ supported msg __
     +AddPicture
     +AddVideo
+    +LikePicture
+    +LikeVideo
 } 
 
-class UserStore {
-    +latestUserIndex
+class UserManagerStore {
+    +latestUserManagerIndex
     +receive()
     __ supported msg __
-    +addUser
+    +AddUserManager
+    +GetNumUserManagers
 }
+note top of UserManagerStore
+   UserManagerStore creates new
+   UserManagers and store the last
+   assigned UserManager index
+end note
 
-class User {
-    +requests
+class UserManager {
+    +receive()
+    +createContent()
     __ supported msg __
-    +CreateUser
-    +ShareContent
+    +CreateUserManager
+    +DoingAction
 } 
+note top of UserManager
+    The message DoingActions 
+    can do the following randomly:
+    - PostPictureAction
+    - PostVideoAction
+    - LikePictureAction
+    - LikeVideoAction
+    - SendFriendRequestAction
+end note
 
-Producer --> User : msg: Create a User
-User --> User : msg: ShareContent (with time interval)
-User <--> UserStore : msg: Add a new user
-User --> ContentStore : msg: Add a new content
+class FriendStore {
+    +receive()
+    __ supported msg __
+    +SendFriendRequest
+    +AcceptFriendRequest
+}
+note bottom of FriendStore
+   FriendStore randomly
+   decides if a friend request
+   will be accepted or not by
+   the receiver
+end note
+
+Producer "1" --> "1..*" UserManager : msg: Create a UserManager
+UserManager --> UserManager : msg: DoingActions (with time interval)
+UserManager "1..*" <--> "1" UserManagerStore : msg: Add a new UserManager
+UserManager "1..*" --> "1" ContentStore : msg: Add a new content
+UserManager "1..*" <--> "1" FriendStore : msg: Make and accept friend request
 @enduml

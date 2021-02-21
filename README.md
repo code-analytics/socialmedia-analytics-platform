@@ -8,12 +8,14 @@ The producer is a multiprocessing (potentially also distributed) application whi
 It should emit sign-up message to Kafka for new users and should simulate a random amount of event such as likes, comments, friend requests, friend acceptance. 
 
 #### Types of events
-Here are the events messages that will be store in MySQL
+Here are the events that will be store in MySQL
 - sign-ups
 - friend requests
 - friend requests acceptances
 - pictures
 - videos
+- pictures likes
+- video likes
 
 ### Data Analytics Architecture
 
@@ -27,7 +29,9 @@ Here are the events messages that will be store in MySQL
 The Producer architecture is based on the Actor model. We use the actor model to have the app segmented in different parts that run in parallel.
 Each of the component you can see bellow run in the parallel and communicate with each other with typed messages.
 
-In order to avoid too many database access, we keep information about user ids and image/video ids in the UserStore and the ContentStore.
-Every users can send messages to the UserStore and the ContentStore. They are the one which manage the IDs of the users' content, generate the fake data and deliver message to Kafka.
-Using the Actor model makes the app more scalable (since it can be distributed to multiple machines) and handles pretty well the concurrency of the ressources (in our case the users ids and content ids)
+On startup the program will create a certain number of users which will be instanciated by creating an instance of the User class (being an Actor) at random times.
+The creation of users, media content (pictures and videos data), friendRequests are done by dedicated classes (actors) which create fake data and send them to Kafka.
+The UserStore and the ContentStore keep the lastest index of created content to keep track of the ids that have been assigned in order to avoid database access to produce foreign key that makes sense.
+
+All the scheduling of different actions (sharing and liking content, adding friends) is done in the User class. It send messages to other actors to have random actions to be done at random times.
 <img src="img/output/producer_actors.png" />
