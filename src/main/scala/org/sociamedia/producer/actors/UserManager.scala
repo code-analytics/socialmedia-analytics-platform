@@ -1,28 +1,26 @@
 package org.sociamedia.producer.actors
 
 import akka.actor.{Actor, ActorRef, Timers}
-import org.sociamedia.producer.actors.UserProfile.{CreateUser, ShareContent}
+import org.sociamedia.producer.actors.UserManager.{CreateUser, DoingAction}
 import org.sociamedia.producer.actors.UserStore.AddUser
 import akka.pattern.ask
 import akka.util.Timeout
-
 import scala.concurrent.duration._
 import org.sociamedia.common.models.User
 import org.sociamedia.producer.actors.ContentStore.{AddPicture, AddVideo, LikePicture, LikeVideo}
 import org.sociamedia.producer.actors.FriendStore.SendFriendRequest
-
 import scala.concurrent.Await
 import org.sociamedia.producer.generators.DateGenerator.generateRandomNumber
 import org.sociamedia.producer.utils.RandomData.generatePauseContentCreation
 
 import scala.collection.mutable.ListBuffer
 
-object UserProfile {
+object UserManager {
   case class CreateUser(userStoreRef: ActorRef, contentStoreRef: ActorRef, friendStoreRef: ActorRef)
-  case object ShareContent
+  case object DoingAction
 }
 
-class UserProfile extends Actor with Timers {
+class UserManager extends Actor with Timers {
 
   implicit val timeout = Timeout(10 seconds)
 
@@ -40,14 +38,14 @@ class UserProfile extends Actor with Timers {
       val user = Await.result(userFuture, timeout.duration).asInstanceOf[User]
       println(s"User ${user.userId} has been created")
       context.become(createContent(user, userStoreRef, contentStoreRef, friendStoreRef), true)
-      self ! ShareContent
+      self ! DoingAction
   }
 
   def getContentAction(): Int = generateRandomNumber(1,5)
 
   def createContent(user: User, userStoreRef: ActorRef, contentStoreRef: ActorRef,
                     friendStoreRef: ActorRef): Receive = {
-    case ShareContent =>
+    case DoingAction =>
       getContentAction match {
         case PostPictureAction => contentStoreRef ! AddPicture(user)
         case PostVideoAction => contentStoreRef ! AddVideo(user)
@@ -59,6 +57,6 @@ class UserProfile extends Actor with Timers {
           if(receiverId != 0) requestSentToIds += receiverId
       }
       val pauseDuration = generatePauseContentCreation(1, 20)
-      timers.startSingleTimer("content_creation_timer", ShareContent, pauseDuration seconds)
+      timers.startSingleTimer("content_creation_timer", DoingAction, pauseDuration seconds)
   }
 }

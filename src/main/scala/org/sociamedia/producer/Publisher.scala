@@ -1,8 +1,8 @@
 package org.sociamedia.producer
 
 import akka.actor.{ActorRef, ActorSystem, Props}
-import org.sociamedia.producer.actors.{ContentStore, FriendStore, UserProfile, UserStore}
-import org.sociamedia.producer.actors.UserProfile.CreateUser
+import org.sociamedia.producer.actors.{ContentStore, FriendStore, UserManager, UserStore}
+import org.sociamedia.producer.actors.UserManager.CreateUser
 import org.sociamedia.producer.generators.DateGenerator.generateTimeBeforeCreate
 import org.sociamedia.common.configuration.AppConfiguration.{dataGenConf}
 
@@ -18,7 +18,7 @@ object Publisher {
   def makeUserActorConfig(totalUsers: Int): List[UserActorConfig] = {
     (1 to totalUsers).toList.map { userId =>
       val userActorName = s"user_$userId"
-      val userActor = system.actorOf(Props[UserProfile], userActorName)
+      val userActor = system.actorOf(Props[UserManager], userActorName)
       UserActorConfig(userActor, userActorName, generateTimeBeforeCreate(dataGenConf.maxHoursOffsetSignUp))
     }
   }
