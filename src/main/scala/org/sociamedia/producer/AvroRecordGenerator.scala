@@ -2,7 +2,7 @@ package org.sociamedia.producer
 
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
-import org.sociamedia.common.models.{FriendRequest, LikedPicture, LikedVideo, PicturePost, User, VideoPost}
+import org.sociamedia.common.models.{FriendRequest, FriendRequestAccepted, LikedPicture, LikedVideo, PicturePost, User, VideoPost}
 
 object AvroRecordGenerator {
 
@@ -65,6 +65,15 @@ object AvroRecordGenerator {
     avroRecord.put("requesterId", friendRequest.requesterId)
     avroRecord.put("receiverId", friendRequest.receiverId)
     avroRecord.put("timestamp", friendRequest.timestamp)
+    avroRecord
+  }
+
+  def makeFriendRequestAcceptedRecord[T](data: T, avroSchema: Schema): GenericData.Record = {
+    val avroRecord = new GenericData.Record(avroSchema)
+    val friendRequestAccepted = data.asInstanceOf[FriendRequestAccepted]
+    avroRecord.put("requesterId", friendRequestAccepted.requesterId)
+    avroRecord.put("accepterId", friendRequestAccepted.accepterId)
+    avroRecord.put("timestamp", friendRequestAccepted.timestamp)
     avroRecord
   }
 

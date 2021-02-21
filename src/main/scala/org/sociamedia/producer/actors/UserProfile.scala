@@ -5,12 +5,16 @@ import org.sociamedia.producer.actors.UserProfile.{CreateUser, ShareContent}
 import org.sociamedia.producer.actors.UserStore.AddUser
 import akka.pattern.ask
 import akka.util.Timeout
+
 import scala.concurrent.duration._
 import org.sociamedia.common.models.User
 import org.sociamedia.producer.actors.ContentStore.{AddPicture, AddVideo, LikePicture, LikeVideo}
-import org.sociamedia.producer.actors.FriendStore.{SendFriendRequest}
+import org.sociamedia.producer.actors.FriendStore.SendFriendRequest
+
 import scala.concurrent.Await
 import org.sociamedia.producer.generators.DateGenerator.generateRandomNumber
+import org.sociamedia.producer.utils.RandomData.generatePauseContentCreation
+
 import scala.collection.mutable.ListBuffer
 
 object UserProfile {
@@ -39,8 +43,6 @@ class UserProfile extends Actor with Timers {
       self ! ShareContent
   }
 
-  def generatePauseContentCreation(): Int = generateRandomNumber(3, 20)
-
   def getContentAction(): Int = generateRandomNumber(1,5)
 
   def createContent(user: User, userStoreRef: ActorRef, contentStoreRef: ActorRef,
@@ -52,11 +54,11 @@ class UserProfile extends Actor with Timers {
         case LikePictureAction => contentStoreRef ! LikePicture(user)
         case LikeVideoAction => contentStoreRef ! LikeVideo(user)
         case SendFriendRequestAction =>
-          val receiverIdFuture = friendStoreRef ? SendFriendRequest(user, requestSentToIds.toList, userStoreRef)
+          val receiverIdFuture = friendStoreRef ? SendFriendRequest(user.userId, requestSentToIds.toList, userStoreRef)
           val receiverId = Await.result(receiverIdFuture, timeout.duration).asInstanceOf[Int]
           if(receiverId != 0) requestSentToIds += receiverId
       }
-      val pauseDuration = generatePauseContentCreation()
+      val pauseDuration = generatePauseContentCreation(1, 20)
       timers.startSingleTimer("content_creation_timer", ShareContent, pauseDuration seconds)
   }
 }
