@@ -7,6 +7,7 @@ case class User(
                  phone: String,
                  firstname: String,
                  lastname: String,
-                 birthday: Long,
-                 signUpDate: Long
+                 birthday: String,
+                 signUpDate: Long,
+                 country: String
                )

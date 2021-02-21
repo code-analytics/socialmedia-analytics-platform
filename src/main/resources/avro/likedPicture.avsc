@@ -8,5 +8,8 @@
   }, {
     "name": "userId",
     "type": "int"
+  }, {
+    "name": "timestamp",
+    "type": "long"
   } ]
 }

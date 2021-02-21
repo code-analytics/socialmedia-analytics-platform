@@ -11,5 +11,8 @@
   }, {
     "name": "userTimeSpent",
     "type": "int"
+  }, {
+    "name": "timestamp",
+    "type": "long"
   } ]
 }

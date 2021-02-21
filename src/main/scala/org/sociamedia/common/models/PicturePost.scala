@@ -1,8 +1,7 @@
 package org.sociamedia.common.models
 
-case class SharedPicture(
+case class PicturePost(
                           pictureId: Int,
                           publisherId: Int,
-                          pictureDate: Long,
-                          pictureDuration: Int
+                          pictureDate: Long
                         )

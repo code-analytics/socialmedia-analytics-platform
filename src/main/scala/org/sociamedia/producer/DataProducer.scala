@@ -11,7 +11,7 @@ import scala.util.{Failure, Success, Try}
 
 object DataProducer {
 
-  def getAvroSchema(topic: String): Schema = getSchemaFromRepo(topic + "-value")
+  def getAvroSchema(topic: String): Schema = getSchemaFromRepo(topic)
 
   def getKafkaProperties(): Properties = {
     val props = new Properties()
@@ -23,7 +23,7 @@ object DataProducer {
     props
   }
 
-  def sendUserToKafka[T](topic: String, data: T, createRecord: (T, Schema) => GenericData.Record): Unit = {
+  def sendToKafka[T](topic: String, data: T, createRecord: (T, Schema) => GenericData.Record): Unit = {
     val props = getKafkaProperties()
     val producer = new KafkaProducer[String, GenericData.Record](props)
     val key = "1"
@@ -32,8 +32,7 @@ object DataProducer {
 
     Try {
       val record = new ProducerRecord(topic, key, avroRecord)
-      val ack = producer.send(record).get()
-      println(s"ack: $ack")
+      producer.send(record).get()
     }
     match {
       case Success(_) => println(s"Message sent to Kafka")

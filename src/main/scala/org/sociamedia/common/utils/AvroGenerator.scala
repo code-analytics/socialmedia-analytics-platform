@@ -2,7 +2,8 @@ package org.sociamedia.common.utils
 
 import com.sksamuel.avro4s.AvroSchema
 import org.apache.avro.Schema
-import org.sociamedia.common.models.{FriendRequest, Friendship, LikedPicture, LikedVideo, SharedPicture, SharedVideo, User}
+import org.sociamedia.common.models.{FriendRequest, FriendRequestAccepted, Friendship, LikedPicture, LikedVideo, PicturePost, VideoPost, User}
+
 import java.io.{File, PrintWriter}
 import org.sociamedia.common.utils.SchemaRegistryUtils.writeSchemaToRepo
 
@@ -21,9 +22,10 @@ object AvroGenerator {
     "user" -> AvroSchema[User],
     "friendship" -> AvroSchema[Friendship],
     "friendshipRequest" -> AvroSchema[FriendRequest],
-    "sharedVideo" -> AvroSchema[SharedVideo],
+    "friendshipRequestAccepted" -> AvroSchema[FriendRequestAccepted],
+    "videoPost" -> AvroSchema[VideoPost],
     "likedVideo" -> AvroSchema[LikedVideo],
-    "sharedPicture" -> AvroSchema[SharedPicture],
+    "picturePost" -> AvroSchema[PicturePost],
     "likedPicture" -> AvroSchema[LikedPicture])
 
   def main(args: Array[String]): Unit = {

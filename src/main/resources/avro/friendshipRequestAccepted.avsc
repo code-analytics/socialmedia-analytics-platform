@@ -1,12 +1,12 @@
 {
   "type": "record",
-  "name": "FriendRequest",
+  "name": "FriendRequestAccepted",
   "namespace": "org.sociamedia.common.models",
   "fields": [ {
-    "name": "requesterId",
+    "name": "accepterId",
     "type": "int"
   }, {
-    "name": "receiverId",
+    "name": "requesterId",
     "type": "int"
   }, {
     "name": "timestamp",
