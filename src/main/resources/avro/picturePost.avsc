@@ -1,0 +1,15 @@
+{
+  "type": "record",
+  "name": "PicturePost",
+  "namespace": "org.sociamedia.common.models",
+  "fields": [ {
+    "name": "pictureId",
+    "type": "int"
+  }, {
+    "name": "publisherId",
+    "type": "int"
+  }, {
+    "name": "pictureDate",
+    "type": "long"
+  } ]
+}

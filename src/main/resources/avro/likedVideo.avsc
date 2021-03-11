@@ -1,0 +1,18 @@
+{
+  "type": "record",
+  "name": "LikedVideo",
+  "namespace": "org.sociamedia.common.models",
+  "fields": [ {
+    "name": "videoId",
+    "type": "int"
+  }, {
+    "name": "userId",
+    "type": "int"
+  }, {
+    "name": "userTimeSpent",
+    "type": "int"
+  }, {
+    "name": "timestamp",
+    "type": "long"
+  } ]
+}
