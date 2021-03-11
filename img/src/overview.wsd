@@ -1,0 +1,67 @@
+@startuml
+!define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.2.0
+!define SPRITESURL https://raw.githubusercontent.com/rabelenda/cicon-plantuml-sprites/v1.0/sprites
+
+!includeurl ICONURL/common.puml
+!includeurl ICONURL/devicons/mongodb.puml
+!includeurl ICONURL/devicons/mysql.puml
+!includeurl SPRITESURL/kafka.puml
+!includeurl SPRITESURL/server.puml
+
+!includeurl ICONURL/font-awesome/mobile_phone.puml
+
+!includeurl ICONURL/font-awesome-5/laptop.puml
+!includeurl ICONURL/font-awesome-5/tablet_alt.puml
+!includeurl ICONURL/font-awesome-5/calculator.puml
+!includeurl ICONURL/font-awesome-5/chart_line.puml
+
+!include <logos/airflow.puml>
+
+sprite spark ../input/spark_icon.png
+sprite schema_registry ../input/schema_registry.png
+
+left to right direction
+
+package "Producers" as producer {
+    FA_MOBILE_PHONE(producer1, Phones) #LightBlue
+    FA5_LAPTOP(producer2, Laptops) #LightBlue
+    FA5_TABLET_ALT(producer3, Tablets) #LightBlue   
+}
+
+package "BI Analytics" {
+    rectangle "<$airflow>\nAirflow"  as airflow #LightBlue
+    FA5_CHART_LINE(dashboard, Dashboard) #LightPink
+    FA5_CALCULATOR(bi, KPI Calc) #LightPink
+}
+
+package "Data Aquisition" {
+    queue "<$kafka>\nKafka" as kafka #LightBlue
+    rectangle "<$spark{scale=0.05}>" as spark #LightBlue
+}
+
+rectangle "<$schema_registry{scale=0.2}>\nSchema\nRegistry" as schema_registry #LightBlue
+
+
+DEV_MYSQL(mysql, MySQL) #LightBlue
+
+producer1 --> kafka : message
+producer2 --> kafka : message
+producer3 --> kafka : message
+
+producer1 <--> schema_registry : Get Schema
+
+kafka <--> spark : streaming
+spark <--> schema_registry : Get Schema
+
+spark --> mysql : store
+bi <--> mysql : fetch & store
+dashboard <--> mysql : fetch
+airflow --> bi : Daily
+
+legend right
+    |Color | Type |
+    |<#LightBlue>| Data Engineering|
+    |<#LightPink>| BI Analytics|
+endlegend
+
+@enduml
