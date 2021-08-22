@@ -1,0 +1,26 @@
+@startuml
+
+!define ICONURL https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v2.2.0
+!define SPRITESURL https://raw.githubusercontent.com/rabelenda/cicon-plantuml-sprites/v1.0/sprites
+!define GCPPuml https://raw.githubusercontent.com/davidholsgrove/gcp-icons-for-plantuml/master/dist
+
+
+!includeurl ICONURL/common.puml
+!includeurl ICONURL/devicons/mongodb.puml
+!includeurl ICONURL/devicons/mysql.puml
+!includeurl SPRITESURL/kafka.puml
+!includeurl SPRITESURL/server.puml
+!includeurl ICONURL/font-awesome/mobile_phone.puml
+!includeurl ICONURL/font-awesome-5/laptop.puml
+!includeurl ICONURL/font-awesome-5/tablet_alt.puml
+!includeurl ICONURL/font-awesome-5/calculator.puml
+!includeurl ICONURL/font-awesome-5/chart_line.puml
+!include <logos/airflow.puml>
+
+' Google Cloud Icons
+!include GCPPuml/GCPSimplified.puml
+!include GCPPuml/Storage/CloudStorage.puml
+!include GCPPuml/DataAnalytics/BigQuery.puml
+
+
+@enduml
