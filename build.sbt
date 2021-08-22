@@ -6,7 +6,8 @@ lazy val global = project
   .in(file("."))
   .aggregate(
     common,
-    producer
+    producer,
+    consumer
   )
 
 lazy val common = project
@@ -39,7 +40,7 @@ lazy val consumer = project
   .settings(
     name := "consumer",
     settings,
-    libraryDependencies ++= commonDependencies ++ Seq(
+    libraryDependencies ++= Seq(
       dependencies.sparkCore,
       dependencies.sparkSql,
       dependencies.sparkStreaming,
@@ -51,14 +52,12 @@ lazy val consumer = project
     ),
     dependencyOverrides += "com.fasterxml.jackson.core" % "jackson-databind" % "2.6.7.1"
   )
-  .dependsOn(
-    common
-  )
+
 
 lazy val dependencies = {
 
   new {
-    val sparkV = "2.4.3"
+    val sparkV = "2.4.0"
     val akkaVersion = "2.5.13"
 
     val typesafeConfig       = "com.typesafe"            % "config"                       % "1.4.0"

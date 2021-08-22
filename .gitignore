@@ -7,3 +7,5 @@ project/project/
 projet/target/
 *.jar
 zookeeper/
+output/
+checkpoint/

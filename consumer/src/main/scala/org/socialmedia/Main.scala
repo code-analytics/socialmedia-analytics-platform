@@ -1,11 +1,12 @@
 package org.socialmedia
 
-import org.socialmedia.StructuredStreamer.streamData
+import org.socialmedia.AvroConsumer.streamData
 
-object Main {
+
+object Main extends ConsumerConfig {
 
   def main(args: Array[String]): Unit = {
-    streamData()
+    streamData(topicsToConsume(0))
   }
 
 }
