@@ -26,6 +26,7 @@ object AvroConsumer extends ConsumerConfig {
       .readStream
       .format("kafka")
       .option("kafka.bootstrap.servers", kafkaUrl)
+      .option("failOnDataLoss", "false")
       .option("subscribe", topic)
       .load()
       .withColumn("message", deserializeUdf(col("value")))
@@ -37,6 +38,7 @@ object AvroConsumer extends ConsumerConfig {
 
       .format("parquet")
       .outputMode("append")
+
       .option("path", "output/data.parquet")
       .option("checkpointLocation", "checkpoint/filesink_checkpoint")
 
