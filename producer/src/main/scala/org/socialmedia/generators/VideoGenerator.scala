@@ -11,7 +11,7 @@ object VideoGenerator {
     VideoPost(
       videoId = videoId,
       publisherId = userId,
-      videoDate = System.currentTimeMillis / 1000,
+      timestamp = System.currentTimeMillis / 1000,
       videoDuration = makeVideoDuration
     )
   }

@@ -16,7 +16,7 @@ object AvroRecordGenerator {
     avroRecord.put("firstname", user.firstname)
     avroRecord.put("lastname", user.lastname)
     avroRecord.put("birthday", user.birthday)
-    avroRecord.put("signUpDate", user.signUpDate)
+    avroRecord.put("timestamp", user.timestamp)
     avroRecord.put("country", user.country)
     avroRecord
   }
@@ -26,7 +26,7 @@ object AvroRecordGenerator {
     val picture = data.asInstanceOf[PicturePost]
     avroRecord.put("pictureId", picture.pictureId)
     avroRecord.put("publisherId", picture.publisherId)
-    avroRecord.put("pictureDate", picture.pictureDate)
+    avroRecord.put("timestamp", picture.timestamp)
     avroRecord
   }
 
@@ -35,7 +35,7 @@ object AvroRecordGenerator {
     val video = data.asInstanceOf[VideoPost]
     avroRecord.put("videoId", video.videoId)
     avroRecord.put("publisherId", video.publisherId)
-    avroRecord.put("videoDate", video.videoDate)
+    avroRecord.put("timestamp", video.timestamp)
     avroRecord.put("videoDuration", video.videoDuration)
     avroRecord
   }

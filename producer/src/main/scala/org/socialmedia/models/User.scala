@@ -8,6 +8,6 @@ case class User(
                  firstname: String,
                  lastname: String,
                  birthday: String,
-                 signUpDate: Long,
+                 timestamp: Long,
                  country: String
                )

@@ -1,9 +1,10 @@
-package org.socialmedia.utils
+package org.socialmedia.schemaregistry
 
 import com.sksamuel.avro4s.AvroSchema
 import org.apache.avro.Schema
 import org.socialmedia.models._
-import org.socialmedia.utils.SchemaRegistryUtils.writeSchemaToRepo
+import org.socialmedia.schemaregistry.SchemaRegistryUtils.writeSchemaToRepo
+
 import java.io.{File, PrintWriter}
 
 object AvroGenerator {
@@ -19,7 +20,6 @@ object AvroGenerator {
 
   def makeSchemaMap(): Map[String, Schema] = Map[String, Schema](
     "user" -> AvroSchema[User],
-    "friendship" -> AvroSchema[Friendship],
     "friendshipRequest" -> AvroSchema[FriendRequest],
     "friendshipRequestAccepted" -> AvroSchema[FriendRequestAccepted],
     "videoPost" -> AvroSchema[VideoPost],

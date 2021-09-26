@@ -3,9 +3,10 @@ package org.socialmedia
 import org.apache.avro.Schema
 import org.apache.avro.generic.GenericData
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
+
 import java.util.Properties
-import org.socialmedia.utils.SchemaRegistryUtils.{getSchemaFromRepo, schemaRegistryUrl}
 import org.socialmedia.configuration.AppConfiguration.kafkaConf
+import org.socialmedia.schemaregistry.SchemaRegistryUtils.{getSchemaFromRepo, schemaRegistryUrl}
 
 import scala.util.{Failure, Success, Try}
 

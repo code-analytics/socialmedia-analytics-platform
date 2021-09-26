@@ -3,6 +3,6 @@ package org.socialmedia.models
 case class VideoPost(
                         videoId: Int,
                         publisherId: Int,
-                        videoDate: Long,
+                        timestamp: Long,
                         videoDuration: Int
                       )

@@ -48,7 +48,10 @@ lazy val consumer = project
       dependencies.kafkaClient,
       dependencies.avroSerializer,
       dependencies.avroBridge,
-      dependencies.sparkKafkaSql
+      dependencies.sparkKafkaSql,
+      dependencies.scalaTest,
+      dependencies.sparkFastTests,
+      dependencies.sparkDaria
     ),
     dependencyOverrides += "com.fasterxml.jackson.core" % "jackson-databind" % "2.6.7.1"
   )
@@ -79,6 +82,10 @@ lazy val dependencies = {
     val sparkStreamingKafka  = "org.apache.spark"        %% "spark-streaming-kafka-0-10"  % sparkV
     val sparkKafkaSql        = "org.apache.spark"        %% "spark-sql-kafka-0-10"        % "2.4.4"
     val avroBridge           = "za.co.absa"              % "abris_2.12"                   % "4.1.0"
+    val sparkFastTests       = "com.github.mrpowers"     %% "spark-fast-tests"            % "0.23.0" % "test"
+    val sparkDaria           = "com.github.mrpowers"     %% "spark-daria"                 % "0.39.0"
+
+
   }
 }
 

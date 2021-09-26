@@ -2,10 +2,11 @@ package org.socialmedia
 
 import io.confluent.kafka.schemaregistry.client.{CachedSchemaRegistryClient, SchemaRegistryClient}
 import org.apache.avro.Schema
+import org.apache.spark.sql.DataFrame
 import org.apache.spark.sql.avro.SchemaConverters
 import org.apache.spark.sql.functions._
 import org.apache.spark.sql.streaming.Trigger
-
+import org.socialmedia.DataProcessing.AugmentedDataFrame
 
 object AvroConsumer extends ConsumerConfig {
 
@@ -34,14 +35,22 @@ object AvroConsumer extends ConsumerConfig {
       .select(from_json(col("message"), sparkSchema.dataType).alias("parsed_value"))
       .select("parsed_value.*")
 
+      .toFormattedDate("timestamp","date")
+
+    writeStreamToParquet(kafkaDataFrame, "output/data.parquet")
+
+  }
+
+  def writeStreamToParquet(dfToWrite: DataFrame, outputPath: String): Unit = {
+    dfToWrite
       .writeStream
-
-      .format("parquet")
+      .trigger(Trigger.ProcessingTime("10 seconds"))
+      .format("console")
       .outputMode("append")
-
-      .option("path", "output/data.parquet")
-      .option("checkpointLocation", "checkpoint/filesink_checkpoint")
-
+      /*.format("parquet")
+      .outputMode("append")
+      .option("path", outputPath)
+      .option("checkpointLocation", "checkpoint/filesink_checkpoint")*/
       .start()
       .awaitTermination()
   }

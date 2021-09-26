@@ -1,4 +1,4 @@
-package org.socialmedia.utils
+package org.socialmedia.schemaregistry
 
 import io.confluent.kafka.schemaregistry.client.CachedSchemaRegistryClient
 import org.apache.avro.Schema
