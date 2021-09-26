@@ -1,0 +1,12 @@
+.DS_Store
+target/
+.idea/
+.bsp/
+.env
+project/project/
+projet/target/
+*.jar
+zookeeper/
+output/
+checkpoint/
+plantuml.jar
