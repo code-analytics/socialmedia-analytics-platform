@@ -1,0 +1,58 @@
+@startuml
+
+!include includes.wsd
+
+left to right direction
+
+sprite spark ../input/spark_icon.png
+sprite schema_registry ../input/schema_registry.png
+
+
+package "Producers" as producers #LightBlue {
+    FA_MOBILE_PHONE(producer1, Phones) #White
+    FA5_LAPTOP(producer2, Laptops) #White
+    FA5_TABLET_ALT(producer3, Tablets) #White   
+}
+
+' package "BI Analytics" {
+'     rectangle "<$airflow>\nAirflow"  as airflow #LightBlue
+'     FA5_CHART_LINE(dashboard, Dashboard) #LightPink
+'     FA5_CALCULATOR(bi, KPI Calc) #LightPink
+' }
+
+package "Data Aquisition" #LightPink {
+    queue "<$kafka>\nKafka" as kafka #White
+    rectangle "<$spark{scale=0.05}>" as spark #White
+}
+
+package "Storage" #LightGrey {
+    database "<$BigQuery{scale=0.5}>\nBigQuery" as bigquery #White
+    database "<$CloudStorage{scale=0.5}>\n Cloud\n Storage" as gcpstorage #White
+}
+
+rectangle "<$schema_registry{scale=0.2}>\nSchema\nRegistry" as schema_registry #LightBlue
+
+producer1 --> kafka : message
+producer2 --> kafka : message
+producer3 --> kafka : message
+
+
+producer3 <--> schema_registry : All producers \n get schema
+
+kafka <--> spark : streaming
+spark <--> schema_registry : Get Schema
+
+spark --> gcpstorage : store
+gcpstorage --> bigquery : Load tables
+
+' bi <--> gcpstorage : fetch & store
+' dashboard <--> gcpstorage : fetch
+' airflow --> bi : Daily
+
+' legend right
+'     |Color | Type |
+'     |<#LightBlue>| Data Engineering|
+'     |<#LightPink>| BI Analytics|
+' endlegend
+
+@enduml
