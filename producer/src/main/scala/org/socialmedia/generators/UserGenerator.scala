@@ -28,7 +28,7 @@ object UserGenerator {
       firstname = personGenerator.firstNameMale,
       lastname = personGenerator.lastName,
       birthday =  getBirthday(generateRandomNumber(15, 50)),
-      signUpDate = getSignUpTimeStamp(),
+      timestamp = getSignUpTimeStamp(),
       country = getCountry()
     )
   }
